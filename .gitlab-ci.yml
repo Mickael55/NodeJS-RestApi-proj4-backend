@@ -1,0 +1,19 @@
+image: ruby
+
+stages:
+  - build
+  - deploy-staging
+
+nodejs-build: 
+    stage: build
+    image: node
+    script:
+        - npm install
+
+
+deployment-staging:
+  stage: deploy-staging
+  before_script:
+    - gem install dpl
+  script:
+    - dpl --provider=heroku --app=robot-currency-yen-staging --api_key=$API_KEY
